@@ -1,0 +1,20 @@
+{
+    "id_email": "20212816@eaut.edu.vn",
+    "title": "Chào bạn, JproChat đây.\nVới yêu cầu \"Tra cứu tài khoản, sản phẩm, lịch sử giao dịch\", tôi sẽ trả về các tiêu đề sau cho nội\ndung tương ứng:\n*   \u001b[1mThông tin tài khoản\u001b[0m\n*   \u001b[1mDanh mục sản phẩm\u001b[0m\n*   \u001b[1mLịch sử giao dịch\u001b[0m\nHy vọng những tiêu đề này hữu ích cho bạn!",
+    "description": "Cuộc trò chuyện mới",
+    "timestamp": "2025-06-05T07:24:58.394526Z",
+    "chat": [
+        {
+            "sender": "user",
+            "message": "Tra cứu tài khoản, sản phẩm, lịch sử giao dịch",
+            "type": "text",
+            "timestamp": "2025-06-05T07:24:58.396952Z"
+        },
+        {
+            "sender": "bot",
+            "message": "Chào bạn, JproChat đây. Bạn muốn tra cứu thông tin gì về tài khoản, sản phẩm hay lịch sử giao dịch?\nHãy cho tôi biết cụ thể hơn để tôi có thể hỗ trợ bạn tốt nhất nhé. Ví dụ:\n*   \u001b[1mTài khoản:\u001b[0m Bạn muốn tra cứu số dư tài khoản, thông tin cá nhân liên kết với tài khoản\nhay thông tin về hạn mức thẻ tín dụng?\n*   \u001b[1mSản phẩm:\u001b[0m Bạn muốn tra cứu thông tin về sản phẩm bạn đang sử dụng (ví dụ: thông tin chi\ntiết về gói cước điện thoại, hợp đồng bảo hiểm)?\n*   \u001b[1mLịch sử giao dịch:\u001b[0m Bạn muốn tra cứu các giao dịch gần đây, giao dịch trong một khoảng\nthời gian cụ thể, hay giao dịch với một đối tượng cụ thể?\nTôi sẽ cố gắng hỗ trợ bạn tìm kiếm thông tin nhanh chóng và chính xác nhất.",
+            "type": "text",
+            "timestamp": "2025-06-05T07:25:01.105233Z"
+        }
+    ]
+}

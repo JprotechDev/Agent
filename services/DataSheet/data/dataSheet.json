@@ -1,0 +1,26 @@
+{ 
+    "Sheet 1": {
+        "maneSheet": "AI PROCESSING - TRANSACTIONS",
+        "spreadsheet_id": "1VNtJ1hAKZ8IvZQklGDV0OLE7vvJAzEfVD49kfkFNL_U",
+        "worksheet_name": {
+            "key1": "PAYMENT_TRANSACTION",
+            "key2": "TAX_TRANSACTION"
+        }
+    },
+    "Sheet 2": {
+        "maneSheet": "1234567890",
+        "spreadsheet_id": "1VNtJ1hAKZ8IvZQklGDV0OLE7vvJAzEfVD49kfkFNL_U",
+        "worksheet_name": {
+            "key1": "PAYMENT_TRANSACTION",
+            "key2": "TAX_TRANSACTION"
+        }
+    },
+    "Sheet 3": {
+        "maneSheet": "hhh",
+        "spreadsheet_id": "1VNtJ1hAKZ8IvZQklGDV0OLE7vvJAzEfVD49kfkFNL_U",
+        "worksheet_name": {
+            "key1": "PAYMENT_TRANSACTION",
+            "key2": "TAX_TRANSACTION"
+        }
+    }
+}

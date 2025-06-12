@@ -1,0 +1,23 @@
+{
+    "id_email": "20212816@eaut.edu.vn",
+    "title": "Chào bạn!\nĐể tôi có thể trả về một tiêu đề phù hợp cho nội dung, bạn vui lòng cung cấp cho tôi nội dung đó\nđược không?",
+    "description": "Cuộc trò chuyện mới",
+    "timestamp": "2025-06-04T10:26:58.918292Z",
+    "chat": [
+        {
+            "sender": "user",
+            "message": "chào",
+            "type": "text",
+            "timestamp": "2025-06-04T10:26:58.920755Z"
+        },
+        {
+            "sender": "bot",
+            "message": {
+                "type": "text",
+                "content": "Chào bạn! JproChat đây. Rất vui được hỗ trợ bạn. Bạn cần gì ạ?"
+            },
+            "type": "text",
+            "timestamp": "2025-06-04T10:27:00.413630Z"
+        }
+    ]
+}

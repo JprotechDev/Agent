@@ -1,0 +1,136 @@
+{
+    "id_email": "20212816@eaut.edu.vn",
+    "title": "\u001b[1mDanh Sách Hóa Đơn\u001b[0m",
+    "description": "Cuộc trò chuyện mới",
+    "timestamp": "2025-06-08T08:41:18.040531Z",
+    "chat": [
+        {
+            "sender": "user",
+            "message": "hiển thị danh sách hoá đơn ",
+            "type": "text",
+            "timestamp": "2025-06-08T08:41:18.042414Z"
+        },
+        {
+            "sender": "bot",
+            "message": {
+                "type": "table",
+                "data": [
+                    {
+                        "REQUEST_ID": "REQ005",
+                        "TRANSACTION ID": "TXN1004",
+                        "BANK ACCOUNT": 111222333,
+                        "BANK SHORT NAME": "BIDV",
+                        "TRANSACTION CONTENT": "Thanh toán phí dịch vụ",
+                        "INVOICE NO": "INV004",
+                        "CONTRACT_NO": "CONT004",
+                        "PROJECT ID": "PRJ004",
+                        "MONEY AMOUNT": 4300000,
+                        "TRANSACTION DATE": "2024-05-13",
+                        "SENDER": "Pham Van D",
+                        "RECEIVER": "Công ty GHI"
+                    },
+                    {
+                        "REQUEST_ID": "REQ006",
+                        "TRANSACTION ID": "TXN1005",
+                        "BANK ACCOUNT": 111222334,
+                        "BANK SHORT NAME": "MB",
+                        "TRANSACTION CONTENT": "Thanh toán phí dịch vụ",
+                        "INVOICE NO": "INV004",
+                        "CONTRACT_NO": "CONT004",
+                        "PROJECT ID": "PRJ004",
+                        "MONEY AMOUNT": 4300000,
+                        "TRANSACTION DATE": "2024-05-14",
+                        "SENDER": "Pham Van D",
+                        "RECEIVER": "Công ty GHI"
+                    },
+                    {
+                        "REQUEST_ID": "REQ007",
+                        "TRANSACTION ID": "TXN1006",
+                        "BANK ACCOUNT": 111222335,
+                        "BANK SHORT NAME": "BIDV",
+                        "TRANSACTION CONTENT": "Thanh toán phí dịch vụ",
+                        "INVOICE NO": "INV004",
+                        "CONTRACT_NO": "CONT004",
+                        "PROJECT ID": "PRJ004",
+                        "MONEY AMOUNT": 4300000,
+                        "TRANSACTION DATE": "2024-05-15",
+                        "SENDER": "Pham Van D",
+                        "RECEIVER": "Công ty GHI"
+                    },
+                    {
+                        "REQUEST_ID": "REQ008",
+                        "TRANSACTION ID": "TXN1007",
+                        "BANK ACCOUNT": 111222336,
+                        "BANK SHORT NAME": "MB",
+                        "TRANSACTION CONTENT": "Thanh toán phí dịch vụ",
+                        "INVOICE NO": "INV004",
+                        "CONTRACT_NO": "CONT004",
+                        "PROJECT ID": "PRJ004",
+                        "MONEY AMOUNT": 4300000,
+                        "TRANSACTION DATE": "2024-05-16",
+                        "SENDER": "Pham Van D",
+                        "RECEIVER": "Công ty GHI"
+                    },
+                    {
+                        "REQUEST_ID": "REQ009",
+                        "TRANSACTION ID": "TXN1008",
+                        "BANK ACCOUNT": 111222337,
+                        "BANK SHORT NAME": "BIDV",
+                        "TRANSACTION CONTENT": "Thanh toán phí dịch vụ",
+                        "INVOICE NO": "INV004",
+                        "CONTRACT_NO": "CONT004",
+                        "PROJECT ID": "PRJ004",
+                        "MONEY AMOUNT": 4300000,
+                        "TRANSACTION DATE": "2024-05-17",
+                        "SENDER": "Pham Van D",
+                        "RECEIVER": "Công ty GHI"
+                    },
+                    {
+                        "REQUEST_ID": "REQ010",
+                        "TRANSACTION ID": "TXN1009",
+                        "BANK ACCOUNT": 111222338,
+                        "BANK SHORT NAME": "MB",
+                        "TRANSACTION CONTENT": "Thanh toán phí dịch vụ",
+                        "INVOICE NO": "INV004",
+                        "CONTRACT_NO": "CONT004",
+                        "PROJECT ID": "PRJ004",
+                        "MONEY AMOUNT": 4300000,
+                        "TRANSACTION DATE": "2024-05-18",
+                        "SENDER": "Pham Van D",
+                        "RECEIVER": "Công ty GHI"
+                    },
+                    {
+                        "REQUEST_ID": "REQ011",
+                        "TRANSACTION ID": "TXN1010",
+                        "BANK ACCOUNT": 111222339,
+                        "BANK SHORT NAME": "NCB",
+                        "TRANSACTION CONTENT": "Thanh toán phí dịch vụ",
+                        "INVOICE NO": "INV004",
+                        "CONTRACT_NO": "CONT004",
+                        "PROJECT ID": "PRJ004",
+                        "MONEY AMOUNT": 4300000,
+                        "TRANSACTION DATE": "2024-05-19",
+                        "SENDER": "Pham Van D",
+                        "RECEIVER": "Công ty GHI"
+                    },
+                    {
+                        "REQUEST_ID": "REQ012",
+                        "TRANSACTION ID": "TXN1011",
+                        "BANK ACCOUNT": 111222340,
+                        "BANK SHORT NAME": "MB",
+                        "TRANSACTION CONTENT": "Thanh toán phí dịch vụ",
+                        "INVOICE NO": "INV004",
+                        "CONTRACT_NO": "CONT004",
+                        "PROJECT ID": "PRJ004",
+                        "MONEY AMOUNT": 4300000,
+                        "TRANSACTION DATE": "2024-05-20",
+                        "SENDER": "Pham Van D",
+                        "RECEIVER": "Công ty GHI"
+                    }
+                ]
+            },
+            "type": "text",
+            "timestamp": "2025-06-08T08:41:21.657317Z"
+        }
+    ]
+}

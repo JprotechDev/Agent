@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <title>Hộp Thư Đến</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    function showEmail(title, body, sender, time) {
+      document.getElementById("email-content").innerHTML = `
+        <div class="mb-4">
+          <h2 class="text-2xl font-semibold text-gray-800 mb-1">${title}</h2>
+          <p class="text-sm text-gray-500">Từ: <strong>${sender}</strong> • ${time}</p>
+        </div>
+        <div class="text-gray-700 text-base border-t pt-4">${body}</div>
+      `;
+    }
+
+    function filterEmails() {
+      const keyword = document.getElementById('search-input').value.toLowerCase();
+      const items = document.querySelectorAll('.email-item');
+      items.forEach(item => {
+        const text = item.innerText.toLowerCase();
+        item.style.display = text.includes(keyword) ? '' : 'none';
+      });
+    }
+  </script>
+</head>
+<body class="bg-gray-50 min-h-screen">
+  <div class="flex h-screen">
+    <!-- Sidebar -->
+    <div class="w-1/3 bg-white border-r border-gray-200 flex flex-col">
+      <div class="p-4 border-b">
+        <h2 class="text-xl font-semibold text-gray-800 mb-1">Hộp thư đến</h2>
+        <input id="search-input" type="text" oninput="filterEmails()" placeholder="Tìm kiếm email..."
+          class="w-full px-3 py-1.5 border border-gray-300 rounded text-sm focus:outline-none focus:ring focus:border-blue-400" />
+      </div>
+      <ul class="overflow-y-auto flex-grow divide-y divide-gray-100" id="email-list">
+        <li class="email-item p-4 hover:bg-gray-100 cursor-pointer flex gap-3"
+            onclick="showEmail('Chào bạn', 'Đây là nội dung email đầu tiên. Hân hạnh được làm quen với bạn!', 'Nguyễn Văn A', '09:00 AM')">
+          <img src="https://i.pravatar.cc/40?img=1" class="rounded-full w-9 h-9" alt="avatar">
+          <div class="flex-1">
+            <h4 class="font-medium text-gray-800">Nguyễn Văn A</h4>
+            <p class="text-sm text-gray-600 truncate">Chào bạn</p>
+            <p class="text-xs text-gray-400">09:00 AM</p>
+          </div>
+        </li>
+        <li class="email-item p-4 hover:bg-gray-100 cursor-pointer flex gap-3"
+            onclick="showEmail('Thông báo hệ thống', 'Bạn đã đăng ký thành công khóa học Lập trình Web.', 'Hệ thống', '10:15 AM')">
+          <img src="https://i.pravatar.cc/40?img=2" class="rounded-full w-9 h-9" alt="avatar">
+          <div class="flex-1">
+            <h4 class="font-medium text-gray-800">Hệ thống</h4>
+            <p class="text-sm text-gray-600 truncate">Thông báo hệ thống</p>
+            <p class="text-xs text-gray-400">10:15 AM</p>
+          </div>
+        </li>
+        <!-- Thêm email khác nếu muốn -->
+      </ul>
+    </div>
+
+    <!-- Nội dung email -->
+    <div class="w-2/3 p-8 overflow-y-auto bg-white">
+      <div id="email-content" class="max-w-2xl mx-auto mt-12 text-center text-gray-500 text-base">
+        Chọn một email để xem nội dung chi tiết.
+      </div>
+    </div>
+  </div>
+</body>
+</html>

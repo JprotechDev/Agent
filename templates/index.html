@@ -1,0 +1,159 @@
+{% extends "include/base.html" %}
+
+{% block content_chat %}
+    <div id="chatContainer" class="absolute inset-0 top-16 bottom-20 overflow-y-auto px-4 space-y-4" style="margin-top: 10px;">
+        {% if chat_content %}
+            {% for row in chat_content %}
+                {% if row.sender == "bot" %}
+                    {% if row.type == "text" %}
+                        <div class="bg-indigo-100 text-indigo-900 rounded-xl p-4 w-fit max-w-[75%] shadow-md self-start space-y-2 max-w-[350px] break-words">
+                            {% if row.message.type == "text" %}
+                                <p>{{ row.message.content }}</p>
+                            {% elif row.message.type == "table" %}
+                            <div class="overflow-x-auto">
+                                <table class="table-auto border-collapse border border-indigo-300 w-full text-sm">
+                                    <thead>
+                                        <tr class="bg-indigo-200">
+                                            {% for key in row.message.data[0].keys() %}
+                                                <th class="border border-indigo-300 px-2 py-1 text-left">{{ key }}</th>
+                                            {% endfor %}
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for item in row.message.data %}
+                                            <tr class="even:bg-indigo-50">
+                                                {% for value in item.values() %}
+                                                    <td class="border border-indigo-300 px-2 py-1 break-words">{{ value }}</td>
+                                                {% endfor %}
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                            {% else %}
+                                <p>{{ row.message }}</p>
+                            {% endif %}
+
+                        </div>
+                    {% elif row.type == "image" %}
+                        <div class="bg-indigo-100 text-indigo-900 rounded-xl p-1 w-fit max-w-[75%] shadow-md self-start space-y-2 max-w-[350px] break-words">
+                            <img src="{{ url_for('static', filename=row.message) }}" alt="Bot image" class="rounded-lg w-40 h-auto">
+                        </div>
+                    {% elif row.type == "file" %}
+                        <div class="bg-indigo-100 text-indigo-900 rounded-xl p-4 w-fit max-w-[75%] shadow-md self-start space-y-2 max-w-[350px] break-words">
+                            <a href="{{ url_for('static', filename=row.message) }}" class="text-sm text-indigo-700 underline flex items-center space-x-1" download>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5m0 0l5-5m-5 5V4" />
+                                </svg>
+                                <span>{{ row.message.split('/')[-1] }}</span>
+                            </a>
+                        </div>
+                    {% endif %}
+                {% else %}
+                    {% if row.type == "text" %}
+                        <div class="bg-gray-200 text-gray-900 rounded-xl p-4 w-fit max-w-full ml-auto shadow-md space-y-2 max-w-[400px] break-words">
+                            <p>{{ row.message }}</p>
+                        </div>
+                    {% elif row.type == "image" %}
+                        <div class="bg-gray-200 text-gray-900 rounded-xl p-1 w-fit max-w-full ml-auto shadow-md space-y-2 max-w-[400px] break-words">
+                            <img src="{{ url_for('static', filename=row.message) }}" alt="User image" class="rounded-lg w-40 h-auto">
+                        </div>
+                    {% elif row.type == "file" %}
+                        <div class="bg-gray-200 text-gray-900 rounded-xl p-4 w-fit max-w-full ml-auto shadow-md space-y-2 max-w-[400px] break-words">
+                            <a href="{{ url_for('static', filename=row.message) }}" class="text-sm text-gray-700 underline flex items-center space-x-1" download>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5m0 0l5-5m-5 5V4" />
+                                </svg>
+                                <span>{{ row.message.split('/')[-1] }}</span>
+                            </a>
+                        </div>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+        {% else %}
+            <div class="inset-0 flex items-center justify-center bg-opacity-50">
+                <div class="bg-yellow-100 text-yellow-900 rounded-xl p-4 w-fit max-w-[75%] shadow-md space-y-2 max-w-[400px] break-words">
+                    <p>Bạn có thể hỏi tôi về các nội dung sau:</p>
+                    <ul class="list-disc list-inside space-y-1">
+                        <li>Tra cứu hóa đơn (Invoice)</li>
+                        <li>Chi tiết thanh toán (Payment)</li>
+                        <li>Thông tin thuế (Tax Transaction)</li>
+                        <li>Kết hợp Thanh toán - Giao dịch (Payment - Transaction)</li>
+                        <li>Tìm kiếm giao dịch, hóa đơn, tài khoản</li>
+                        <li>Tra cứu tài khoản, sản phẩm, lịch sử giao dịch</li>
+                    </ul>
+                    <p class="text-sm text-yellow-800">Vui lòng nhập từ khóa hoặc số giao dịch để tôi hỗ trợ bạn nhanh nhất!</p>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+    <form action="/messenger" method="POST" enctype="multipart/form-data"  id="chatForm" class="absolute bottom-0 left-0 right-0 bg-white px-4 py-2 space-y-2 border-t">
+        <div id="filePreview" class="flex items-center space-x-2 hidden">
+            <span id="fileName" class="text-sm text-gray-700"></span>
+            <button type="button" onclick="clearFile()" class="text-red-500 hover:underline text-xs">X</button>
+        </div>
+        <div class="flex items-center space-x-2">
+            <input type="hidden" name="file_token" value="{{ file_token }}">
+            <input type="text" name="messageContent" id="messageInput" placeholder="Type your message..." class="flex-1 border border-gray-300 rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"/>
+            <button id="sendButton" type="button" class="bg-indigo-600 hover:bg-indigo-700 text-white rounded p-2">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+
+            <input type="file" name="fileContent" id="fileInput" class="hidden">
+            <button type="button" onclick="document.getElementById('fileInput').click();" class="border rounded p-2 hover:bg-gray-100" >
+                <i class="fas fa-file-upload text-gray-700"></i>
+            </button>
+        </div>
+    </form>
+    <script>
+        const chatContainer = document.getElementById('chatContainer'); // Lấy phần tử chứa nội dung chat
+        const fileInput = document.getElementById('fileInput');
+        const filePreview = document.getElementById('filePreview');
+        const fileNameSpan = document.getElementById('fileName');
+        const sendButton = document.getElementById('sendButton');
+        const messageInput = document.getElementById('messageInput');
+
+        // Hàm cuộn xuống dưới cùng
+        function scrollToBottom() {
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        // Xử lý khi chọn file
+        fileInput.addEventListener('change', function () {
+            if (fileInput.files.length > 0) {
+                fileNameSpan.textContent = fileInput.files[0].name;
+                filePreview.classList.remove('hidden');
+            } else {
+                filePreview.classList.add('hidden');
+            }
+        });
+
+        // Xóa file đã chọn
+        function clearFile() {
+            fileInput.value = '';
+            filePreview.classList.add('hidden');
+            fileNameSpan.textContent = '';
+        }
+
+        // Tự động thay đổi type của nút gửi thành 'submit' nếu có nội dung
+        messageInput.addEventListener('input', function () {
+            if (messageInput.value.trim() !== '' || fileInput.files.length > 0) {
+                sendButton.type = 'submit';
+            } else {
+                sendButton.type = 'button';
+            }
+        });
+
+        // Cuộn xuống dưới cùng khi trang được tải hoàn toàn
+        document.addEventListener('DOMContentLoaded', scrollToBottom);
+        window.addEventListener('load', scrollToBottom); // Để đảm bảo cuộn chính xác sau khi tất cả nội dung (ảnh) tải xong
+
+        // Cuộn xuống dưới cùng sau khi form được gửi (tin nhắn mới được thêm)
+        document.getElementById('chatForm').addEventListener('submit', function() {
+            // Đặt một khoảng thời gian ngắn để nội dung mới có thể hiển thị trong DOM
+            setTimeout(scrollToBottom, 100);
+        });
+
+    </script>
+
+{% endblock %}

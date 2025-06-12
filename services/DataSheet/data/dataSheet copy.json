@@ -1,0 +1,23 @@
+{ 
+    "AI PROCESSING - TRANSACTIONS": {
+        "spreadsheet_id": "1VNtJ1hAKZ8IvZQklGDV0OLE7vvJAzEfVD49kfkFNL_U",
+        "worksheet_name": {
+            "key1": "PAYMENT_TRANSACTION",
+            "key2": "TAX_TRANSACTION"
+        }
+    },
+    "JPT - PAYMENT": {
+        "spreadsheet_id": "1nEtqqM-NczvXTiD8nJ4O_todYenvKg8cI3sVd2JIwt4",
+        "worksheet_name": {
+            "key1": "PAYMENT_TRANSACTION",
+            "key2": "TAX_TRANSACTION"
+        }
+    },
+    "Sheet Account": {
+        "spreadsheet_id": "1qZv0Dw3TUhyQVFs8Q-9wrCsNFah12YlL64HGmj5IwOo",
+        "worksheet_name": {
+            "key1": "PAYMENT_TRANSACTION",
+            "key2": "TAX_TRANSACTION"
+        }
+    }
+}

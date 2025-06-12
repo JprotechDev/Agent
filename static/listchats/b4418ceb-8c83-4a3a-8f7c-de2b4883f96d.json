@@ -1,0 +1,215 @@
+{
+    "id_email": "20212816@eaut.edu.vn",
+    "title": "Xin chào.\nTiêu đề: \u001b[1mLệnh và Thực thi\u001b[0m",
+    "description": "Cuộc trò chuyện mới",
+    "timestamp": "2025-06-11T07:37:22.132821Z",
+    "chat": [
+        {
+            "sender": "user",
+            "message": "chào",
+            "type": "text",
+            "timestamp": "2025-06-11T07:37:22.134248Z"
+        },
+        {
+            "sender": "bot",
+            "message": {
+                "type": "text",
+                "content": "Chào bạn! JproChat đây. Tôi có thể giúp gì cho bạn hôm nay?"
+            },
+            "type": "text",
+            "timestamp": "2025-06-11T07:37:23.598231Z"
+        },
+        {
+            "sender": "user",
+            "message": "hiển thị danh sách hoá đơn",
+            "type": "text",
+            "timestamp": "2025-06-11T07:39:38.620981Z"
+        },
+        {
+            "sender": "bot",
+            "message": {
+                "type": "table",
+                "data": [
+                    {
+                        "REQUEST_ID": "2687c471-8a0b-4c84-ac17-8cca5871eed1",
+                        "TRANSACTION ID": "LD2322371319",
+                        "BANK ACCOUNT": "",
+                        "BANK SHORT NAME": "MB",
+                        "TRANSACTION CONTENT": "Thông báo gốc lãi vay đến hạn",
+                        "INVOICE NO": "",
+                        "SERIAL NO": "",
+                        "CONTRACT NO": "",
+                        "PROJECT ID": "LD2322371319",
+                        "MONEY AMOUNT": "9530130.00 VND",
+                        "TRANSACTION DATE": "25/10/2023",
+                        "SENDER": "NGÂN HÀNG TMCP QUÂN ĐỘI",
+                        "RECEIVER": "CÔNG TY TNHH CÔNG NGHỆ JPROTECH",
+                        "PUSH_DATE": "2025-06-10 22:09:58"
+                    },
+                    {
+                        "REQUEST_ID": "8a253edd-76d5-4ddc-9191-c50e722af8a6",
+                        "TRANSACTION ID": "LD2322974740",
+                        "BANK ACCOUNT": "",
+                        "BANK SHORT NAME": "MB",
+                        "TRANSACTION CONTENT": "Thông báo gốc lãi vay đến hạn",
+                        "INVOICE NO": "",
+                        "SERIAL NO": "",
+                        "CONTRACT NO": "",
+                        "PROJECT ID": "LD2322974740",
+                        "MONEY AMOUNT": "6167894.00 VND",
+                        "TRANSACTION DATE": "25/10/2023",
+                        "SENDER": "NGÂN HÀNG TMCP QUÂN ĐỘI",
+                        "RECEIVER": "CÔNG TY TNHH CÔNG NGHỆ JPROTECH",
+                        "PUSH_DATE": "2025-06-10 22:09:58"
+                    },
+                    {
+                        "REQUEST_ID": "018e9841-eb42-4dfb-b8e3-9650fa0fe36e",
+                        "TRANSACTION ID": "LD2323642509",
+                        "BANK ACCOUNT": "",
+                        "BANK SHORT NAME": "MB",
+                        "TRANSACTION CONTENT": "Thông báo gốc lãi vay đến hạn",
+                        "INVOICE NO": "",
+                        "SERIAL NO": "",
+                        "CONTRACT NO": "",
+                        "PROJECT ID": "LD2323642509",
+                        "MONEY AMOUNT": "8130280.00 VND",
+                        "TRANSACTION DATE": "25/10/2023",
+                        "SENDER": "NGÂN HÀNG TMCP QUÂN ĐỘI",
+                        "RECEIVER": "CÔNG TY TNHH CÔNG NGHỆ JPROTECH",
+                        "PUSH_DATE": "2025-06-10 22:09:58"
+                    },
+                    {
+                        "REQUEST_ID": "f38ff5c3-fda9-4d9f-be55-d7632ac225c5",
+                        "TRANSACTION ID": "LD2324877402",
+                        "BANK ACCOUNT": "",
+                        "BANK SHORT NAME": "MB",
+                        "TRANSACTION CONTENT": "Thông báo gốc lãi vay đến hạn",
+                        "INVOICE NO": "",
+                        "SERIAL NO": "",
+                        "CONTRACT NO": "",
+                        "PROJECT ID": "LD2324877402",
+                        "MONEY AMOUNT": "1491176.00 VND",
+                        "TRANSACTION DATE": "25/10/2023",
+                        "SENDER": "NGÂN HÀNG TMCP QUÂN ĐỘI",
+                        "RECEIVER": "CÔNG TY TNHH CÔNG NGHỆ JPROTECH",
+                        "PUSH_DATE": "2025-06-10 22:09:58"
+                    },
+                    {
+                        "REQUEST_ID": "a005ec6a-66a3-48dd-9b56-f43d1c88f4b5",
+                        "TRANSACTION ID": "LD2325666979",
+                        "BANK ACCOUNT": "",
+                        "BANK SHORT NAME": "MB",
+                        "TRANSACTION CONTENT": "Thông báo gốc lãi vay đến hạn",
+                        "INVOICE NO": "",
+                        "SERIAL NO": "",
+                        "CONTRACT NO": "",
+                        "PROJECT ID": "LD2325666979",
+                        "MONEY AMOUNT": "16699397.00 VND",
+                        "TRANSACTION DATE": "25/10/2023",
+                        "SENDER": "NGÂN HÀNG TMCP QUÂN ĐỘI",
+                        "RECEIVER": "CÔNG TY TNHH CÔNG NGHỆ JPROTECH",
+                        "PUSH_DATE": "2025-06-10 22:09:58"
+                    },
+                    {
+                        "REQUEST_ID": "94b84cb1-f78d-457a-b394-978e68fcb63f",
+                        "TRANSACTION ID": "LD2327173517",
+                        "BANK ACCOUNT": "",
+                        "BANK SHORT NAME": "MB",
+                        "TRANSACTION CONTENT": "Thông báo gốc lãi vay đến hạn",
+                        "INVOICE NO": "",
+                        "SERIAL NO": "",
+                        "CONTRACT NO": "",
+                        "PROJECT ID": "LD2327173517",
+                        "MONEY AMOUNT": "3977675.00 VND",
+                        "TRANSACTION DATE": "25/10/2023",
+                        "SENDER": "NGÂN HÀNG TMCP QUÂN ĐỘI",
+                        "RECEIVER": "CÔNG TY TNHH CÔNG NGHỆ JPROTECH",
+                        "PUSH_DATE": "2025-06-10 22:09:58"
+                    },
+                    {
+                        "REQUEST_ID": "5de43955-dd65-4b17-9b73-d1f967fedc1c",
+                        "TRANSACTION ID": "LD2327823819",
+                        "BANK ACCOUNT": "",
+                        "BANK SHORT NAME": "MB",
+                        "TRANSACTION CONTENT": "Thông báo gốc lãi vay đến hạn",
+                        "INVOICE NO": "",
+                        "SERIAL NO": "",
+                        "CONTRACT NO": "",
+                        "PROJECT ID": "LD2327823819",
+                        "MONEY AMOUNT": "3531163.00 VND",
+                        "TRANSACTION DATE": "25/10/2023",
+                        "SENDER": "NGÂN HÀNG TMCP QUÂN ĐỘI",
+                        "RECEIVER": "CÔNG TY TNHH CÔNG NGHỆ JPROTECH",
+                        "PUSH_DATE": "2025-06-10 22:09:58"
+                    },
+                    {
+                        "REQUEST_ID": "8cf1223d-2bcc-46e6-9334-d92642fe85b2",
+                        "TRANSACTION ID": "LD2328323959",
+                        "BANK ACCOUNT": "",
+                        "BANK SHORT NAME": "MB",
+                        "TRANSACTION CONTENT": "Thông báo gốc lãi vay đến hạn",
+                        "INVOICE NO": "",
+                        "SERIAL NO": "",
+                        "CONTRACT NO": "",
+                        "PROJECT ID": "LD2328323959",
+                        "MONEY AMOUNT": "4843498.00 VND",
+                        "TRANSACTION DATE": "25/10/2023",
+                        "SENDER": "NGÂN HÀNG TMCP QUÂN ĐỘI",
+                        "RECEIVER": "CÔNG TY TNHH CÔNG NGHỆ JPROTECH",
+                        "PUSH_DATE": "2025-06-10 22:09:58"
+                    },
+                    {
+                        "REQUEST_ID": "f09a862e-bbd6-4d3a-9bac-c784096856a0",
+                        "TRANSACTION ID": "LD2321339390",
+                        "BANK ACCOUNT": "",
+                        "BANK SHORT NAME": "MB",
+                        "TRANSACTION CONTENT": "Thông báo gốc lãi vay đến hạn (Lãi)",
+                        "INVOICE NO": "",
+                        "SERIAL NO": "",
+                        "CONTRACT NO": "",
+                        "PROJECT ID": "LD2321339390",
+                        "MONEY AMOUNT": "4077764.00 VND",
+                        "TRANSACTION DATE": "25/08/2023",
+                        "SENDER": "NGÂN HÀNG TMCP QUÂN ĐỘI",
+                        "RECEIVER": "Căn cứ vào các Hợp đồng tín dụng và Khế ước nhận nợ đã ký giữa Quý Khách hàng và Ngân hàng TMCP",
+                        "PUSH_DATE": "2025-06-11 13:18:30"
+                    }
+                ]
+            },
+            "type": "text",
+            "timestamp": "2025-06-11T07:39:43.419551Z"
+        },
+        {
+            "sender": "user",
+            "message": "Tìm LD2322371319",
+            "type": "text",
+            "timestamp": "2025-06-11T07:41:39.303277Z"
+        },
+        {
+            "sender": "bot",
+            "message": {
+                "type": "table",
+                "data": [
+                    {
+                        "REQUEST_ID": "2687c471-8a0b-4c84-ac17-8cca5871eed1",
+                        "TRANSACTION ID": "LD2322371319",
+                        "BANK ACCOUNT": "",
+                        "BANK SHORT NAME": "MB",
+                        "TRANSACTION CONTENT": "Thông báo gốc lãi vay đến hạn",
+                        "INVOICE NO": "",
+                        "SERIAL NO": "",
+                        "CONTRACT NO": "",
+                        "PROJECT ID": "LD2322371319",
+                        "MONEY AMOUNT": "9530130.00 VND",
+                        "TRANSACTION DATE": "25/10/2023",
+                        "SENDER": "NGÂN HÀNG TMCP QUÂN ĐỘI",
+                        "RECEIVER": "CÔNG TY TNHH CÔNG NGHỆ JPROTECH",
+                        "PUSH_DATE": "2025-06-10 22:09:58"
+                    }
+                ]
+            },
+            "type": "text",
+            "timestamp": "2025-06-11T07:41:43.671172Z"
+        }
+    ]
+}

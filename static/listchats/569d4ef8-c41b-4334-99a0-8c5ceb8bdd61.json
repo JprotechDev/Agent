@@ -1,0 +1,38 @@
+{
+    "id_email": "20212816@eaut.edu.vn",
+    "title": "Tiêu đề: JproChat - Trợ Lý Ảo Thông Minh",
+    "description": "Cuộc trò chuyện mới",
+    "timestamp": "2025-06-09T09:21:55.216845Z",
+    "chat": [
+        {
+            "sender": "user",
+            "message": "chào",
+            "type": "text",
+            "timestamp": "2025-06-09T09:21:55.220232Z"
+        },
+        {
+            "sender": "bot",
+            "message": {
+                "type": "text",
+                "content": "Chào bạn! Tôi là JproChat, rất vui được trò chuyện với bạn. Bạn cần gì ở tôi ạ?"
+            },
+            "type": "text",
+            "timestamp": "2025-06-09T09:21:56.904933Z"
+        },
+        {
+            "sender": "user",
+            "message": "Tra cứu hóa đơn có tên là MB",
+            "type": "text",
+            "timestamp": "2025-06-09T09:22:01.642886Z"
+        },
+        {
+            "sender": "bot",
+            "message": {
+                "type": "table",
+                "data": []
+            },
+            "type": "text",
+            "timestamp": "2025-06-09T09:22:05.777248Z"
+        }
+    ]
+}

@@ -1,0 +1,104 @@
+{% extends "include/base.html" %}
+
+{% block content_chat %}
+<div id="chatContainer" class="absolute inset-0 top-16 overflow-y-auto px-4 space-y-4" style="margin-top: 10px; padding-bottom: 14px;">
+    <h2 class="text-xl font-semibold text-gray-800 mb-4">Set Token Sheet</h2>
+
+    <!-- Form cho AI PROCESSING - TRANSACTIONS -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+    {% if requestJsonDataSheet %}
+        {% for row in requestJsonDataSheet %}
+        <form id="formTokenSheet1" action="/save-token-sheet-1" method="POST" class="border rounded-md p-4 shadow-sm space-y-4 bg-gray-50 text-sm max-w-md">
+                <h3 class="font-semibold text-gray-800">{{ row.maneSheet }}</h3>
+
+                <label class="block text-gray-600 font-medium">Spreadsheet ID:</label>
+                <input type="text" name="spreadsheet_id" value="{{ row.spreadsheet_id }}" class="w-full border rounded px-2 py-1 focus:outline-none focus:ring-1 focus:ring-indigo-400" required>
+                {% for key, value in row.worksheet_name.items() %}
+                    <label class="block text-gray-600 font-medium">{{ key|capitalize }}:</label>
+                    <input type="text" name="{{ key }}" value="{{ value }}" class="w-full border rounded px-2 py-1 focus:outline-none focus:ring-1 focus:ring-indigo-300" required>
+                {% endfor %}
+                
+                <div class="text-right">
+                    <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700">Save</button>
+                </div>
+            </form>
+        {% endfor %}
+    {% else %}
+        <div class="border rounded-md p-4 bg-gray-50 shadow-sm space-y-4 text-sm max-w-md">
+            <h3 class="font-semibold text-gray-800">Chưa thiết lập sheet</h3>
+        </div>
+    {% endif %}
+    </div>
+
+    <!-- Bank Reference Passwords -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+        <form id="bankPasswordForm" action="/save-bank-passwords" method="POST" class="border rounded-md p-4 bg-gray-50 shadow-sm space-y-4 text-sm max-w-md">
+            <h3 class="font-semibold text-gray-800 mb-2">Bank reference password</h3>
+
+            <div id="kvContainer">
+                <div class="flex items-center gap-2 mb-2">
+                    <input type="text" name="bank_keys[]" value="MSB" placeholder="Key" class="w-1/3 border rounded px-2 py-1 focus:ring-1 focus:ring-indigo-400" required>
+                    <input type="text" name="bank_values[]" value="1699116" placeholder="Value" class="flex-1 border rounded px-2 py-1 focus:ring-1 focus:ring-indigo-400" required>
+                </div>
+                <div class="flex items-center gap-2">
+                    <input type="text" name="bank_keys[]" value="MB" placeholder="Key" class="w-1/3 border rounded px-2 py-1 focus:ring-1 focus:ring-indigo-400" required>
+                    <input type="text" name="bank_values[]" value="0314555115" placeholder="Value" class="flex-1 border rounded px-2 py-1 focus:ring-1 focus:ring-indigo-400" required>
+                </div>
+            </div>
+
+            <div class="flex justify-between pt-2">
+                <button type="button" onclick="addKeyValue()" class="px-3 py-1.5 bg-gray-200 text-gray-700 rounded hover:bg-gray-300">+ Add</button>
+                <button type="submit" class="px-4 py-1.5 bg-indigo-600 text-white rounded hover:bg-indigo-700">Save</button>
+            </div>
+        </form>
+
+        <form id="smsFilterForm" action="/save-sms-filters" method="POST" class="border rounded-md p-4 bg-gray-50 shadow-sm space-y-4 text-sm max-w-md">
+            <h3 class="font-semibold text-gray-800 mb-2">Sms Filter List</h3>
+
+            <div id="kvContainerSms">
+                <div class="flex items-center gap-2 mb-2">
+                    <input type="text" name="sms_keys[]" value="MSB" placeholder="Key" class="w-1/3 border rounded px-2 py-1 focus:ring-1 focus:ring-indigo-400" required>
+                    <input type="text" name="sms_values[]" value="1699116" placeholder="Value" class="flex-1 border rounded px-2 py-1 focus:ring-1 focus:ring-indigo-400" required>
+                </div>
+                <div class="flex items-center gap-2">
+                    <input type="text" name="sms_keys[]" value="MB" placeholder="Key" class="w-1/3 border rounded px-2 py-1 focus:ring-1 focus:ring-indigo-400" required>
+                    <input type="text" name="sms_values[]" value="mbbank.com" placeholder="Value" class="flex-1 border rounded px-2 py-1 focus:ring-1 focus:ring-indigo-400" required>
+                </div>
+            </div>
+
+            <div class="flex justify-between pt-2">
+                <button type="button" onclick="addKeySmsValue()" class="px-3 py-1.5 bg-gray-200 text-gray-700 rounded hover:bg-gray-300">+ Add</button>
+                <button type="submit" class="px-4 py-1.5 bg-indigo-600 text-white rounded hover:bg-indigo-700">Save</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+// Hàm thêm dòng key-value cho bank passwords
+function addKeyValue() {
+    const container = document.getElementById('kvContainer');
+    const div = document.createElement('div');
+    div.classList.add('flex', 'items-center', 'gap-2', 'mb-2');
+    div.innerHTML = `
+        <input type="text" name="bank_keys[]" placeholder="Key" class="w-1/3 border rounded px-2 py-1 focus:ring-1 focus:ring-indigo-400" required>
+        <input type="text" name="bank_values[]" placeholder="Value" class="flex-1 border rounded px-2 py-1 focus:ring-1 focus:ring-indigo-400" required>
+        <button type="button" onclick="this.parentElement.remove()" class="text-red-500 px-2">x</button>
+    `;
+    container.appendChild(div);
+}
+
+// Hàm thêm dòng key-value cho sms filters
+function addKeySmsValue() {
+    const container = document.getElementById('kvContainerSms');
+    const div = document.createElement('div');
+    div.classList.add('flex', 'items-center', 'gap-2', 'mb-2');
+    div.innerHTML = `
+        <input type="text" name="sms_keys[]" placeholder="Key" class="w-1/3 border rounded px-2 py-1 focus:ring-1 focus:ring-indigo-400" required>
+        <input type="text" name="sms_values[]" placeholder="Value" class="flex-1 border rounded px-2 py-1 focus:ring-1 focus:ring-indigo-400" required>
+        <button type="button" onclick="this.parentElement.remove()" class="text-red-500 px-2">x</button>
+    `;
+    container.appendChild(div);
+}
+</script>
+{% endblock %}

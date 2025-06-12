@@ -1,0 +1,216 @@
+{
+    "id_email": "20212816@eaut.edu.vn",
+    "title": "Chào bạn, JproChat đây.\nVới yêu cầu của bạn về việc tra cứu thông tin tài khoản, sản phẩm và lịch sử giao dịch, tôi xin đề\nxuất các tiêu đề sau đây để bạn lựa chọn:\n*   \u001b[1mTổng quan Tài khoản và Giao dịch\u001b[0m\n*   \u001b[1mTra cứu Thông tin Tài chính\u001b[0m\n*   \u001b[1mTài khoản, Sản phẩm & Lịch sử Giao dịch\u001b[0m\n*   \u001b[1mQuản lý Tài khoản và Giao dịch\u001b[0m\n*   \u001b[1mThông tin Chi tiết Tài khoản và Giao dịch\u001b[0m\nHy vọng những gợi ý này hữu ích cho bạn!",
+    "description": "Cuộc trò chuyện mới",
+    "timestamp": "2025-06-05T07:24:58.390470Z",
+    "chat": [
+        {
+            "sender": "user",
+            "message": "Tra cứu tài khoản, sản phẩm, lịch sử giao dịch",
+            "type": "text",
+            "timestamp": "2025-06-05T07:24:58.401300Z"
+        },
+        {
+            "sender": "bot",
+            "message": "Chào bạn! JproChat đây. Bạn muốn tra cứu thông tin gì về tài khoản, sản phẩm hay lịch sử giao dịch\nạ? Hãy cho tôi biết cụ thể hơn để tôi có thể hỗ trợ bạn tốt nhất nhé! Ví dụ:\n*   \u001b[1mTài khoản:\u001b[0m Bạn muốn tra cứu số dư, thông tin cá nhân, thông tin liên hệ,...?\n*   \u001b[1mSản phẩm:\u001b[0m Bạn muốn tra cứu thông tin về sản phẩm nào (ví dụ: gói tiết kiệm, thẻ tín\ndụng,...) hay muốn biết về các sản phẩm hiện có?\n*   \u001b[1mLịch sử giao dịch:\u001b[0m Bạn muốn xem lịch sử giao dịch của tài khoản nào, trong khoảng thời\ngian nào?\nCàng cung cấp chi tiết, tôi càng giúp bạn nhanh chóng hơn!",
+            "type": "text",
+            "timestamp": "2025-06-05T07:25:01.069098Z"
+        },
+        {
+            "sender": "user",
+            "message": "Tra cứu hoá đơn có ngân hàng MB",
+            "type": "text",
+            "timestamp": "2025-06-09T05:07:02.577827Z"
+        },
+        {
+            "sender": "bot",
+            "message": {
+                "type": "table",
+                "data": [
+                    {
+                        "REQUEST_ID": 1,
+                        "CONTRACT_NO": "CN001",
+                        "SERIAL NO": "SN001",
+                        "INVOICE NO": "INV001",
+                        "INVOICE SIGNAL": "AA/21E",
+                        "INVOICE DATE": "2024-05-01",
+                        "INVOICE DESCRIPTION": "Mua hàng hóa",
+                        "BUYER": "Công ty A",
+                        "SELLER": "Công ty B",
+                        "INVOICE AMOUNT_WO VAT": 1000000,
+                        "VAT AMOUNT": 100000,
+                        "TOTAL AMOUNT": 1100000,
+                        "PUSH_DATE": "2024-05-02"
+                    },
+                    {
+                        "REQUEST_ID": 2,
+                        "CONTRACT_NO": "CN002",
+                        "SERIAL NO": "SN002",
+                        "INVOICE NO": "INV002",
+                        "INVOICE SIGNAL": "BB/21E",
+                        "INVOICE DATE": "2024-05-03",
+                        "INVOICE DESCRIPTION": "Dịch vụ vận chuyển",
+                        "BUYER": "Công ty C",
+                        "SELLER": "Công ty D",
+                        "INVOICE AMOUNT_WO VAT": 2000000,
+                        "VAT AMOUNT": 200000,
+                        "TOTAL AMOUNT": 2200000,
+                        "PUSH_DATE": "2024-05-04"
+                    },
+                    {
+                        "REQUEST_ID": 3,
+                        "CONTRACT_NO": "CN003",
+                        "SERIAL NO": "SN003",
+                        "INVOICE NO": "INV003",
+                        "INVOICE SIGNAL": "CC/21E",
+                        "INVOICE DATE": "2024-05-05",
+                        "INVOICE DESCRIPTION": "Cung cấp thiết bị",
+                        "BUYER": "Công ty E",
+                        "SELLER": "Công ty F",
+                        "INVOICE AMOUNT_WO VAT": 3000000,
+                        "VAT AMOUNT": 300000,
+                        "TOTAL AMOUNT": 3300000,
+                        "PUSH_DATE": "2024-05-06"
+                    },
+                    {
+                        "REQUEST_ID": 4,
+                        "CONTRACT_NO": "CN004",
+                        "SERIAL NO": "SN004",
+                        "INVOICE NO": "INV004",
+                        "INVOICE SIGNAL": "DD/21E",
+                        "INVOICE DATE": "2024-05-07",
+                        "INVOICE DESCRIPTION": "Tư vấn giải pháp CNTT",
+                        "BUYER": "Công ty G",
+                        "SELLER": "Công ty H",
+                        "INVOICE AMOUNT_WO VAT": 1500000,
+                        "VAT AMOUNT": 150000,
+                        "TOTAL AMOUNT": 1650000,
+                        "PUSH_DATE": "2024-05-08"
+                    },
+                    {
+                        "REQUEST_ID": 5,
+                        "CONTRACT_NO": "CN005",
+                        "SERIAL NO": "SN005",
+                        "INVOICE NO": "INV005",
+                        "INVOICE SIGNAL": "EE/21E",
+                        "INVOICE DATE": "2024-05-09",
+                        "INVOICE DESCRIPTION": "Bán phần mềm bản quyền",
+                        "BUYER": "Công ty I",
+                        "SELLER": "Công ty J",
+                        "INVOICE AMOUNT_WO VAT": 500000,
+                        "VAT AMOUNT": 50000,
+                        "TOTAL AMOUNT": 550000,
+                        "PUSH_DATE": "2024-05-10"
+                    },
+                    {
+                        "REQUEST_ID": 6,
+                        "CONTRACT_NO": "CN006",
+                        "SERIAL NO": "SN006",
+                        "INVOICE NO": "INV006",
+                        "INVOICE SIGNAL": "FF/21E",
+                        "INVOICE DATE": "2024-05-11",
+                        "INVOICE DESCRIPTION": "Cung cấp văn phòng phẩm",
+                        "BUYER": "Công ty K",
+                        "SELLER": "Công ty L",
+                        "INVOICE AMOUNT_WO VAT": 700000,
+                        "VAT AMOUNT": 70000,
+                        "TOTAL AMOUNT": 770000,
+                        "PUSH_DATE": "2024-05-12"
+                    },
+                    {
+                        "REQUEST_ID": 7,
+                        "CONTRACT_NO": "CN007",
+                        "SERIAL NO": "SN007",
+                        "INVOICE NO": "INV007",
+                        "INVOICE SIGNAL": "GG/21E",
+                        "INVOICE DATE": "2024-05-13",
+                        "INVOICE DESCRIPTION": "Sửa chữa máy móc",
+                        "BUYER": "Công ty M",
+                        "SELLER": "Công ty N",
+                        "INVOICE AMOUNT_WO VAT": 2500000,
+                        "VAT AMOUNT": 250000,
+                        "TOTAL AMOUNT": 2750000,
+                        "PUSH_DATE": "2024-05-14"
+                    },
+                    {
+                        "REQUEST_ID": 8,
+                        "CONTRACT_NO": "CN008",
+                        "SERIAL NO": "SN008",
+                        "INVOICE NO": "INV008",
+                        "INVOICE SIGNAL": "HH/21E",
+                        "INVOICE DATE": "2024-05-15",
+                        "INVOICE DESCRIPTION": "Dịch vụ marketing",
+                        "BUYER": "Công ty O",
+                        "SELLER": "Công ty P",
+                        "INVOICE AMOUNT_WO VAT": 1800000,
+                        "VAT AMOUNT": 180000,
+                        "TOTAL AMOUNT": 1980000,
+                        "PUSH_DATE": "2024-05-16"
+                    },
+                    {
+                        "REQUEST_ID": 9,
+                        "CONTRACT_NO": "CN009",
+                        "SERIAL NO": "SN009",
+                        "INVOICE NO": "INV009",
+                        "INVOICE SIGNAL": "II/21E",
+                        "INVOICE DATE": "2024-05-17",
+                        "INVOICE DESCRIPTION": "Cho thuê thiết bị",
+                        "BUYER": "Công ty Q",
+                        "SELLER": "Công ty R",
+                        "INVOICE AMOUNT_WO VAT": 1200000,
+                        "VAT AMOUNT": 120000,
+                        "TOTAL AMOUNT": 1320000,
+                        "PUSH_DATE": "2024-05-18"
+                    },
+                    {
+                        "REQUEST_ID": 10,
+                        "CONTRACT_NO": "CN010",
+                        "SERIAL NO": "SN010",
+                        "INVOICE NO": "INV010",
+                        "INVOICE SIGNAL": "JJ/21E",
+                        "INVOICE DATE": "2024-05-19",
+                        "INVOICE DESCRIPTION": "Vận chuyển hàng hóa",
+                        "BUYER": "Công ty S",
+                        "SELLER": "Công ty T",
+                        "INVOICE AMOUNT_WO VAT": 2200000,
+                        "VAT AMOUNT": 220000,
+                        "TOTAL AMOUNT": 2420000,
+                        "PUSH_DATE": "2024-05-20"
+                    }
+                ]
+            },
+            "type": "text",
+            "timestamp": "2025-06-09T05:07:07.028653Z"
+        },
+        {
+            "sender": "user",
+            "message": "Tìm CN001",
+            "type": "text",
+            "timestamp": "2025-06-09T09:38:28.085347Z"
+        },
+        {
+            "sender": "bot",
+            "message": {
+                "type": "text",
+                "content": "Tôi xin lỗi, tôi không tìm thấy bất kỳ kết quả nào cho \"CN001\". Bạn có thể cung cấp thêm thông tin\nchi tiết để tôi có thể giúp bạn tốt hơn không? Ví dụ:\n • Bạn đang tìm CN001 ở đâu? (ví dụ: trên trang web nào, trong tài liệu nào)\n • CN001 có thể là gì? (ví dụ: mã sản phẩm, số hiệu tài liệu)\n • Có bất kỳ thông tin liên quan nào khác không?\nViệc cung cấp thêm thông tin sẽ giúp tôi hiểu rõ hơn về những gì bạn đang tìm kiếm và đưa ra kết quả\nchính xác hơn."
+            },
+            "type": "text",
+            "timestamp": "2025-06-09T09:38:30.576336Z"
+        },
+        {
+            "sender": "user",
+            "message": "Tìm CN001 ở phần CONTRACT_NO",
+            "type": "text",
+            "timestamp": "2025-06-09T09:38:53.107778Z"
+        },
+        {
+            "sender": "bot",
+            "message": {
+                "type": "text",
+                "content": "Chào bạn!\nĐể tìm CN001 ở phần CONTRACT_NO, bạn có thể cung cấp thêm thông tin về ngữ cảnh mà bạn đang làm việc\nkhông? Ví dụ:\n*   \u001b[1mBạn đang tìm kiếm trong một văn bản nào?\u001b[0m (ví dụ: một hợp đồng, một bảng tính, một cơ sở\ndữ liệu...)\n*   \u001b[1mBạn muốn tìm chính xác \"CN001\" hay bất kỳ giá trị nào bắt đầu bằng \"CN\"?\u001b[0m\n*   \u001b[1mBạn muốn làm gì sau khi tìm thấy?\u001b[0m (ví dụ: trích xuất thông tin liên quan, thay đổi giá\ntrị...)\nVới thông tin chi tiết hơn, tôi có thể đưa ra hướng dẫn cụ thể và chính xác hơn."
+            },
+            "type": "text",
+            "timestamp": "2025-06-09T09:38:55.821742Z"
+        }
+    ]
+}

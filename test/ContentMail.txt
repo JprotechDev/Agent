@@ -1,0 +1,25 @@
+Recipient name & account number: TRAN VAN DIEN - 1029886312
+Sender name: NGUYEN VAN HOAN
+Amount: (VND) 150,000.00
+Transaction date: 09-10-2022 17:57:49
+Transaction content: Thanh toán ngay
+Bank: MB
+Status: Giao dich thanh cong
+Here are the available fields extracted from the text:
+
+Recipient name & account number: NGUYEN HAI YEN - 028962X4701
+Sender name: NGUYEN VAN HOAN
+Amount: VND 55,000.00
+Transaction date: 09-10-2022 13:19:32
+Transaction content: NGUYEN VAN HOAN chuyen khoan
+Bank: MB
+Status: Giao dich thanh cong
+Here are the available fields extracted from the text:
+
+Recipient name & account number: NGUYEN DINH TAY DUC - 1015874276
+Sender name: NGUYEN VAN HOAN
+Amount: (VND) 275,000.00
+Transaction date: 08-10-2022 12:35:44
+Transaction content: NGUYEN VAN HOAN chuyen khoan
+Bank: MB
+Status: Giao dich thanh cong

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Chatbot Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* CSS cho hiệu ứng đóng mở mượt mà của menu con */
+        #jpt-pay-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
+            opacity: 0;
+        }
+        #jpt-pay-menu.open {
+            max-height: 200px; /* Điều chỉnh giá trị này đủ lớn để chứa tất cả các mục menu */
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex">
+
+    <aside class="w-64 bg-white shadow-lg flex flex-col">
+        <div class="h-20 flex items-center justify-center">
+            <img
+                src="https://scontent.fhan18-1.fna.fbcdn.net/v/t39.30808-6/279285827_162853689523856_5267315525226067978_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=1NfY_opX-3UQ7kNvwFKHskB&_nc_oc=AdlecJZ8eIy1TgajP0vG55IKJPHnzwxs3W0weMyzgcoMST-9W-bWLOw7iYlSX7lf0E4&_nc_zt=23&_nc_ht=scontent.fhan18-1.fna&_nc_gid=JgK95RTCOy6i9X5fGfbH-A&oh=00_AfLYC79nfQh0dQw_dPyITx4xvRQuv5XGwtoIwKM7eiFN6A&oe=682A379B"
+                alt="Logo"
+                class="h-[70px] w-auto rounded-full shadow"
+            />
+        </div>
+
+        <nav class="flex-1 px-4 py-4 space-y-2 overflow-y-auto">
+            <a href="#" class="block px-4 py-2 rounded-lg bg-indigo-100 text-indigo-700 font-semibold">New Chat</a>
+
+            <div class="space-y-1">
+                <a href="#" id="jpt-pay" class="flex justify-between px-4 py-2 rounded-lg hover:bg-indigo-50 text-gray-700 font-medium">
+                    JPT Pay
+                    <span id="arrow-icon" class="ml-2">&#x25BC;</span> </a>
+                <div id="jpt-pay-menu" class="space-y-1 pl-3">
+                    <a href="#" class="block px-4 py-2 rounded-lg hover:bg-indigo-50 text-gray-700 font-medium">Invoice</a>
+                    <a href="#" class="flex justify-between items-center px-4 py-2 rounded-lg hover:bg-indigo-50 text-gray-700 font-medium">JPT Payment</a>
+                    <a href="#" class="block px-4 py-2 rounded-lg hover:bg-indigo-50 text-gray-700 font-medium">Tax Transaction</a>
+                    <a href="#" class="block px-4 py-2 rounded-lg hover:bg-indigo-50 text-gray-700 font-medium">Payment - Transaction</a>
+                </div>
+            </div>
+            <a href="#" class="block px-4 py-2 rounded-lg hover:bg-indigo-50 text-gray-700 font-medium">Check Logs</a>
+            <a href="#" class="block px-4 py-2 rounded-lg hover:bg-indigo-50 text-gray-700 font-medium">Role Manager</a>
+        </nav>
+
+    </aside>
+
+    <div class="flex-1 flex flex-col relative">
+        <header class="h-16 bg-white shadow flex items-center justify-between px-6 fixed top-0 left-64 right-0 z-10">
+            <h1 class="text-2xl font-semibold text-gray-900">Chatbot Dashboard</h1>
+            <div class="relative">
+                <button id="userMenuBtn" onclick="document.getElementById('userDropdown').classList.toggle('hidden')" class="flex items-center gap-3 focus:outline-none">
+                    <span class="text-gray-700 font-medium">Username</span>
+                    <div class="w-10 h-10 rounded-full bg-indigo-500 text-white flex items-center justify-center font-bold">U</div>
+                </button>
+                <div id="userDropdown" class="hidden absolute right-0 mt-2 w-44 bg-white border border-gray-200 rounded-lg shadow-lg py-2 z-20">
+                    <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-indigo-100">Settings</a>
+                    <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-indigo-100">History</a>
+                    <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-indigo-100">Logout</a>
+                </div>
+            </div>
+        </header>
+
+        <main class="flex-1 pt-16 pb-20 bg-white overflow-hidden relative">
+            <div class="absolute inset-0 top-16 bottom-20 overflow-y-auto px-4 space-y-4" style="margin-top: 10px;">
+                <div class="bg-indigo-100 text-indigo-900 rounded-xl p-4 w-fit max-w-[75%] shadow-md self-start space-y-2 max-w-[400px] break-words">
+                    <p>Hello! How can I assist you today?</p>
+                    <img src="https://via.placeholder.com/150" alt="Bot image" class="rounded-lg w-40 h-auto">
+                    <a href="#" class="text-sm text-indigo-700 underline flex items-center space-x-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5m0 0l5-5m-5 5V4" />
+                        </svg>
+                        <span>report.pdf</span>
+                    </a>
+                </div>
+
+                <div class="bg-gray-200 text-gray-900 rounded-xl p-4 w-fit max-w-full ml-auto shadow-md space-y-2 max-w-[400px] break-words">
+                    <p>I want to know about my recent transactions.</p>
+                    <img src="https://via.placeholder.com/120x80" alt="User upload" class="rounded-lg w-32 h-auto ml-auto">
+                    <a href="#" class="text-sm text-blue-700 underline flex items-center space-x-1 justify-end">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5m0 0l5-5m-5 5V4" />
+                        </svg>
+                        <span>transactions.xlsx</span>
+                    </a>
+                </div>
+
+                <div class="bg-indigo-100 text-indigo-900 rounded-xl p-4 w-fit max-w-[75%] shadow-md self-start space-y-2 max-w-[350px] break-words">
+                    <p>Sure! I can help you with that. Please wait a moment.</p>
+                </div>
+                
+            </div>
+
+            <form id="chatForm" class="absolute bottom-0 left-0 right-0 bg-white px-4 py-2 space-y-2 border-t">
+                <div id="filePreview" class="flex items-center space-x-2 hidden">
+                    <span id="fileName" class="text-sm text-gray-700"></span>
+                    <button type="button" onclick="clearFile()" class="text-red-500 hover:underline text-xs">X</button>
+                </div>
+
+                <div class="flex items-center space-x-2">
+                    <input type="text" name="message" id="messageInput" placeholder="Type your message..." class="flex-1 border border-gray-300 rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"/>
+                    <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white rounded p-2">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+
+                    <input type="file" id="fileInput" class="hidden">
+                    <button type="button" onclick="document.getElementById('fileInput').click();" class="border rounded p-2 hover:bg-gray-100" >
+                        <i class="fas fa-file-upload text-gray-700"></i>
+                    </button>
+                </div>
+            </form>
+        </main>
+    </div>
+
+    <script>
+        window.addEventListener('click', function (e) {
+            const userMenuBtn = document.getElementById('userMenuBtn');
+            const userDropdown = document.getElementById('userDropdown');
+            if (!userMenuBtn.contains(e.target)) {
+                userDropdown.classList.add('hidden');
+            }
+        });
+
+        const jptPay = document.getElementById('jpt-pay');
+        const jptPayMenu = document.getElementById('jpt-pay-menu');
+        const arrowIcon = document.getElementById('arrow-icon');
+
+        jptPay.addEventListener('click', function(e) {
+            e.stopPropagation();
+            jptPayMenu.classList.toggle('open'); // Sử dụng class 'open' thay vì 'hidden'
+            if (jptPayMenu.classList.contains('open')) {
+                arrowIcon.innerHTML = '&#x25B2;'; // Mũi tên lên khi mở
+            } else {
+                arrowIcon.innerHTML = '&#x25BC;'; // Mũi tên xuống khi đóng
+            }
+        });
+
+        window.addEventListener('click', function(e) {
+            if (!jptPay.contains(e.target)) {
+                jptPayMenu.classList.remove('open'); // Loại bỏ class 'open' để đóng
+                arrowIcon.innerHTML = '&#x25BC;';
+            }
+        });
+
+        const fileInput = document.getElementById('fileInput');
+        const filePreview = document.getElementById('filePreview');
+        const fileNameSpan = document.getElementById('fileName');
+
+        fileInput.addEventListener('change', function () {
+            if (fileInput.files.length > 0) {
+                fileNameSpan.textContent = fileInput.files[0].name;
+                filePreview.classList.remove('hidden');
+            } else {
+                filePreview.classList.add('hidden');
+            }
+        });
+
+        function clearFile() {
+            fileInput.value = '';
+            filePreview.classList.add('hidden');
+            fileNameSpan.textContent = '';
+        }
+
+        document.getElementById('chatForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const message = document.getElementById('messageInput').value;
+            const file = fileInput.files[0];
+
+            if (!message && !file) {
+                alert("Vui lòng nhập tin nhắn hoặc chọn file.");
+                return;
+            }
+
+            console.log("Tin nhắn:", message);
+            if (file) {
+                console.log("Đã chọn file:", file.name);
+            }
+
+            document.getElementById('messageInput').value = '';
+            clearFile();
+        });
+    </script>
+</body>
+</html>
