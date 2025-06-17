@@ -1,0 +1,79 @@
+{% extends "include/base.html" %}
+
+{% block content_chat %}
+<div class="p-6">
+    <h2 class="text-2xl font-bold mb-4">Quản lý phân quyền</h2>
+    
+    <table class="table-auto w-full border text-sm">
+        <thead class="bg-gray-100">
+            <tr>
+                <th class="border px-4 py-2">Họ và tên</th>
+                <th class="border px-4 py-2">Email</th>
+                <th class="border px-4 py-2">newchat</th>
+                <th class="border px-4 py-2">jpt</th>
+                <th class="border px-4 py-2">history</th>
+                <th class="border px-4 py-2">Full</th>
+                <th class="border px-4 py-2">Hành động</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in get_chat_info_list %}
+            <tr class="text-center">
+                <td class="border px-4 py-2">{{ user.fullname }}</td>
+                <td class="border px-4 py-2">{{ user.email }}</td>
+
+                {% for role in ['newchat', 'jpt', 'history', 'full'] %}
+                <td class="border px-4 py-2">
+                    <input type="checkbox"
+                        {% if role in user.roles %}checked{% endif %}
+                        onclick="toggleRole('{{ user.email }}', '{{ role }}')"
+                    />
+                </td>
+                {% endfor %}
+
+                <td class="border px-4 py-2 space-x-2">
+                    <button class="text-sm bg-yellow-300 px-2 py-1 rounded" onclick="toggleUser('{{ user.email }}')">Tạm dừng/Kích hoạt</button>
+                    <button class="text-sm bg-red-500 text-white px-2 py-1 rounded" onclick="deleteUser('{{ user.email }}')">Xóa</button>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<script>
+function toggleRole(email, role) {
+    fetch('/update-role', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email, role: role })
+    })
+    .then(res => res.json())
+    .then(data => alert(data.message || data.error))
+    .catch(err => alert("Lỗi: " + err));
+}
+
+function deleteUser(email) {
+    if (!confirm("Bạn có chắc chắn muốn xóa tài khoản này không?")) return;
+    fetch('/delete-user', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email })
+    })
+    .then(res => res.json())
+    .then(data => alert(data.message || data.error))
+    .catch(err => alert("Lỗi: " + err));
+}
+
+function toggleUser(email) {
+    fetch('/toggle-user', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email })
+    })
+    .then(res => res.json())
+    .then(data => alert(data.message || data.error))
+    .catch(err => alert("Lỗi: " + err));
+}
+</script>
+{% endblock %}
