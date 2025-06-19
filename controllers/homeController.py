@@ -58,13 +58,10 @@ def chat(file_token):
 @home_bp.route('/messenger', methods=['POST'])
 @login_required
 def messenger():
-    import sys, io
-    sys.stdout = io.TextIOWrapper(sys.stdout.detach(), encoding='utf-8')
-
     if request.method == 'POST':
         # Lấy dữ liệu từ request
         file_token = request.form.get('file_token')
-        messageContent = request.form.get('messageContent')
+        messageContent = request.form.get('messageContent') # Nội dung tin nhắn
         fileContent = request.files.get('fileContent')
 
         # Đường dẫn thư mục
@@ -78,20 +75,15 @@ def messenger():
             if not os.path.exists(folder):
                 os.makedirs(folder)
 
-        # Nếu chưa có file_token, tạo mới và tạo file JSON
+        # Nếu chưa có file_token, tạo mới và tạo file JSON với cấu trúc mặc định
         if not file_token:
-            try:
-                ai_title = AiAgent.ask_general(f"{messageContent}. Trả về tiêu đề cho nội dung trên. Chỉ trả về tiêu đề.")
-                title_result = ai_title.get("content", "Cuộc trò chuyện mới")
-            except Exception as e:
-                print(f"Lỗi khi gọi AI để lấy tiêu đề: {e}")
-                title_result = "Cuộc trò chuyện mới"
-
+            title_content=AiAgent.ask_general(f"{messageContent}. Trả về tiêu đề cho nội dung trên. Chỉ trả về tiêu đề, không trả lời gì khác, cũng không cần chào hỏi gì tôi.")
+            print(title_content)  
             file_token = str(uuid.uuid4())
             file_path = os.path.join(listchats_dir, f"{file_token}.json")
             data = {
-                "id_email": session.get('emailAccount'),
-                "title": title_result,
+                "id_email": session.get('emailAccount'),  # Hoặc lấy từ form tùy bạn
+                "title": title_content['content'],
                 "description": "Cuộc trò chuyện mới",
                 "timestamp": datetime.utcnow().isoformat() + "Z",
                 "chat": []
@@ -103,13 +95,11 @@ def messenger():
             if os.path.exists(file_path):
                 with open(file_path, 'r', encoding='utf-8') as f:
                     data = json.load(f)
-            else:
-                return jsonify({"status": "error", "message": "File token không tồn tại."}), 400
+            else: return jsonify({"status": "error", "message": "File token không tồn tại."}), 400
 
-        # Xử lý message mới
+        # Xử lý message mới (ưu tiên lưu file nếu có rồi đến text)
         messages_to_add = []
 
-        save_path = ""
         if fileContent:
             filename = fileContent.filename
             extension = os.path.splitext(filename)[1].lower()
@@ -132,7 +122,6 @@ def messenger():
                 "timestamp": datetime.utcnow().isoformat() + "Z"
             })
 
-        # Message text từ người dùng
         if messageContent:
             messages_to_add.append({
                 "sender": "user",
@@ -140,28 +129,20 @@ def messenger():
                 "type": "text",
                 "timestamp": datetime.utcnow().isoformat() + "Z"
             })
-
-            try:
-                full_message = f"{save_path if fileContent else ''} {messageContent}"
-                ai_response = AiAgent.ask_general(full_message)
-                ai_reply = ai_response.get("content", "Xin lỗi, tôi chưa có phản hồi.")
-            except Exception as e:
-                print(f"Lỗi AI trả lời: {e}")
-                ai_reply = "Xin lỗi, đã xảy ra lỗi khi xử lý phản hồi."
-
+            
             messages_to_add.append({
                 "sender": "bot",
-                "message": ai_reply,
+                "message": AiAgent.ask_general(f"{save_path if fileContent else '' + messageContent}"),
                 "type": "text",
                 "timestamp": datetime.utcnow().isoformat() + "Z"
             })
 
-        # Lưu lại JSON nếu có message
+        # Thêm tất cả message vào JSON
         if messages_to_add:
             data['chat'].extend(messages_to_add)
             with open(file_path, 'w', encoding='utf-8') as f:
                 json.dump(data, f, ensure_ascii=False, indent=4)
-
+        # Trả về thông tin file_token và dữ liệu mới thêm
         return redirect(url_for('home.chat', file_token=file_token))
 
     return jsonify({"status": "error", "message": "Invalid request"}), 400
@@ -174,60 +155,13 @@ def check_log():
     get_chat_info_list = ChatInfo.get_chat_info_list(session.get('emailAccount'))
     return render_template('jpt_payment_transaction.html', get_chat_info_list=get_chat_info_list)
 
+# Route role_manager
 @home_bp.route('/role_manager')
 @login_required
 def role_manager():
     get_chat_info_list = ChatInfo.get_chat_info_list(session.get('emailAccount'))
-    return render_template('role_manager.html', get_chat_info_list=get_chat_info_list)
-
-# Cập nhật quyền người dùng (thêm hoặc xóa quyền)
-@home_bp.route('/update-role', methods=['POST'])
-@login_required
-def update_role():
-    data = request.get_json()
-    email = data.get('email')
-    role = data.get('role')
-
-    if not email or not role:
-        return jsonify({'error': 'Thiếu thông tin email hoặc quyền'}), 400
-
-    try:
-        ChatInfo.toggle_user_role(email, role)  # Toggle logic: thêm hoặc xóa quyền
-        return jsonify({'message': f'Đã cập nhật quyền "{role}" cho {email}'})
-    except Exception as e:
-        return jsonify({'error': str(e)}), 500
-
-# Xóa người dùng
-@home_bp.route('/delete-user', methods=['POST'])
-@login_required
-def delete_user():
-    data = request.get_json()
-    email = data.get('email')
-
-    if not email:
-        return jsonify({'error': 'Thiếu email người dùng'}), 400
-
-    try:
-        ChatInfo.delete_user(email)
-        return jsonify({'message': f'Đã xóa tài khoản {email}'})
-    except Exception as e:
-        return jsonify({'error': str(e)}), 500
-
-# Tạm dừng hoặc kích hoạt người dùng
-@home_bp.route('/toggle-user', methods=['POST'])
-@login_required
-def toggle_user():
-    data = request.get_json()
-    email = data.get('email')
-
-    if not email:
-        return jsonify({'error': 'Thiếu email người dùng'}), 400
-
-    try:
-        new_status = ChatInfo.toggle_user_status(email)
-        return jsonify({'message': f'Tài khoản {email} hiện tại đang ở trạng thái: {"Hoạt động" if new_status else "Tạm dừng"}'})
-    except Exception as e:
-        return jsonify({'error': str(e)}), 500
+    all_users = Auth.get_all_users() # Lấy tất cả người dùng từ Google Sheet
+    return render_template('role_manager.html', get_chat_info_list=get_chat_info_list, all_users=all_users)
 
 # Route role_manager
 @home_bp.route('/setting')
@@ -239,7 +173,7 @@ def setting():
     #lấy dữ liệu từ json bankref
     requestJsonBankref  = ChatInfo.requestJsonBankref()
     get_chat_info_list = ChatInfo.get_chat_info_list(session.get('emailAccount'))
-    return render_template('setting.html', get_chat_info_list=get_chat_info_list,requestJsonDataSheet=requestJsonDataSheet,  requestJsonBankref=requestJsonBankref)
+    return render_template('setting.html', get_chat_info_list=get_chat_info_list,requestJsonDataSheet=requestJsonDataSheet)
 
 # Route delete_chat
 @home_bp.route('/chat-delete/<file_token>', methods=['POST', 'GET'])
@@ -260,4 +194,3 @@ def logout():
     # Xóa session khi người dùng đăng xuất
     session.clear()
     return redirect(url_for('home.login'))
-
