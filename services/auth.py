@@ -24,7 +24,40 @@ class Auth:
         except Exception as e:
             print(f"Error: {e}")
         return None
-'''
-print(Auth.search_email_password('6d796e6f6e636531323334356d7973616c743132333435363738393007d1104abf3ccf56d1ddd971845a66a7aeea7d7d67106d80ee59ad17fc88b88e6fe830ef', '6d796e6f6e636531323334356d7973616c74313233343536373839305f91563bb93cc956c9a0f56b3c0bdfd5e0d34877121c03e3')) 
-'''
-# print(Auth.search_email_password('20214044@eaut.edu.vn', 'jpt@2024'))
+
+    @staticmethod
+    def get_all_users():
+        try:
+            SECRET_KEY_PASSWORD = os.getenv('SECRET_KEY_PASSWORD')
+            ws = connGoogleSheets(os.getenv('SHEET_ACCOUNT_ID'), os.getenv('SHEET_ACCOUNT_ID_dataAccount'))
+            records = ws.get_all_records() # Lấy tất cả các hàng dưới dạng list of dictionaries
+            
+            all_users_data = []
+            for record in records:
+                decrypted_record = {}
+                # Giải mã tất cả các trường trong mỗi bản ghi
+                for key, value in record.items():
+                    try:
+                        decrypted_record[key] = Encdec.decrypt_aes(value, SECRET_KEY_PASSWORD)
+                    except Exception:
+                        # Nếu giải mã thất bại (ví dụ: trường không phải là mã hóa), giữ nguyên giá trị gốc
+                        decrypted_record[key] = value
+
+                # Giả sử cột 'ROLES' chứa các vai trò được phân tách bằng dấu phẩy
+                if 'ROLES' in decrypted_record and decrypted_record['ROLES']:
+                    decrypted_record['roles'] = [role.strip() for role in decrypted_record['ROLES'].split(',')]
+                else:
+                    decrypted_record['roles'] = [] # Mặc định là một list trống nếu không có vai trò
+
+                # Giả sử cột 'STATUS' chứa trạng thái (ví dụ: 'active', 'inactive')
+                # Bạn có thể điều chỉnh logic này tùy thuộc vào cách bạn lưu trạng thái
+                if 'STATUS' in decrypted_record and decrypted_record['STATUS'] == 'active':
+                    decrypted_record['status'] = True
+                else:
+                    decrypted_record['status'] = False
+
+                all_users_data.append(decrypted_record)
+            return all_users_data
+        except Exception as e:
+            print(f"Error getting all users: {e}")
+        return []
