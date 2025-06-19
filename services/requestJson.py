@@ -93,42 +93,5 @@ class ChatInfo:
             print(f"Lỗi đọc file {directory}: {e}")
             return {}
 
-        return data  
-    
-    
-    @staticmethod
-    def _load_users():
-        with open('data/users.json', 'r', encoding='utf-8') as f:
-            return json.load(f)
-
-    @staticmethod
-    def _save_users(data):
-        with open('data/users.json', 'w', encoding='utf-8') as f:
-            json.dump(data, f, ensure_ascii=False, indent=4)
-
-    @staticmethod
-    def update_user_role(email, new_role):
-        users = ChatInfo._load_users()
-        for user in users:
-            if user['EMAIL'] == email:
-                user['ROLE'] = new_role
-                ChatInfo._save_users(users)
-                return
-        raise Exception("Không tìm thấy người dùng")
-
-    @staticmethod
-    def delete_user(email):
-        users = ChatInfo._load_users()
-        users = [user for user in users if user['EMAIL'] != email]
-        ChatInfo._save_users(users)
-
-    @staticmethod
-    def toggle_user_status(email):
-        users = ChatInfo._load_users()
-        for user in users:
-            if user['EMAIL'] == email:
-                user['ACTIVE'] = not user.get('ACTIVE', True)
-                ChatInfo._save_users(users)
-                return user['ACTIVE']
-        raise Exception("Không tìm thấy người dùng")
+        return data  # Trả về dict đúng định dạng dùng trong Jinja template
 
