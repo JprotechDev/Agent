@@ -1,89 +1,157 @@
-{# role_manager.html #}
+
 {% extends "include/base.html" %}
 
 {% block content_chat %}
 <div class="p-6">
-    <h2 class="text-2xl font-bold mb-4">Quản lý phân quyền</h2>
+    <div class="flex justify-between items-center mb-4">
+        <h2 class="text-2xl font-bold">Quản lý người dùng và phân quyền</h2>
+        {% if is_admin %} {# Nút thêm người dùng vẫn chỉ cho admin thấy #}
+        <button class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2" onclick="toggleAddUserForm()">Thêm người dùng mới</button>
+        {% endif %}
+    </div>
 
-    <table class="table-auto w-full border text-sm">
-        <thead class="bg-gray-100">
-            <tr>
-                <th class="border px-4 py-2">Họ và tên</th>
-                <th class="border px-4 py-2">Email</th>
-                {# Cập nhật các cột quyền dựa trên các vai trò có thể có trong Google Sheet của bạn #}
-                <th class="border px-4 py-2">Truy cập New Chat</th> 
-                <th class="border px-4 py-2">Truy cập JPT Pay</th>
-                <th class="border px-4 py-2">Truy cập History</th>
-                <th class="border px-4 py-2">Truy cập Full</th>
-                <th class="border px-4 py-2">Check Log</th>
-            </tr>
-        </thead>
-        <tbody>
-            {# Duyệt qua all_users (tên biến đã được chuẩn hóa trong homeController) #}
-            {% for user in all_users %} 
-            <tr class="text-center">
-                {# Đảm bảo các key 'FULLNAME', 'EMAIL' khớp với key trong dictionary trả về từ Auth #}
-                <td class="border px-4 py-2">{{ user.FULLNAME }}</td>
-                <td class="border px-4 py-2">{{ user.EMAIL }}</td>
+    {% if is_admin %}
+    <div id="addUserForm" class="mb-6 p-4 border rounded-lg bg-gray-50 hidden">
+        <h3 class="text-xl font-semibold mb-3">Thêm người dùng mới</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div>
+                <label for="newFullname" class="block text-sm font-medium text-gray-700">Họ và tên</label>
+                <input type="text" id="newFullname" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+            </div>
+            <div>
+                <label for="newEmail" class="block text-sm font-medium text-gray-700">Email</label>
+                <input type="email" id="newEmail" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+            </div>
+            <div>
+                <label for="newPassword" class="block text-sm font-medium text-gray-700">Mật khẩu</label>
+                <input type="password" id="newPassword" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+            </div>
+        </div>
+        <button class="mt-4 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" onclick="addNewUser()">Thêm người dùng</button>
+    </div>
+    {% endif %}
 
-                {# Các checkbox cho các vai trò. Sửa các tên role cho phù hợp với cách bạn lưu trữ trong Google Sheet #}
-                <td class="border px-4 py-2">
-                    <input type="checkbox"
-                        {% if 'newchat' in user.roles %}checked{% endif %}
-                        onclick="toggleRole('{{ user.EMAIL }}', 'newchat')"
-                    />
-                </td>
-                <td class="border px-4 py-2">
-                    <input type="checkbox"
-                        {% if 'jpt' in user.roles %}checked{% endif %}
-                        onclick="toggleRole('{{ user.EMAIL }}', 'jpt')"
-                    />
-                </td>
-                <td class="border px-4 py-2">
-                    <input type="checkbox"
-                        {% if 'history' in user.roles %}checked{% endif %}
-                        onclick="toggleRole('{{ user.EMAIL }}', 'history')"
-                    />
-                </td>
-                <td class="border px-4 py-2">
-                    <input type="checkbox"
-                        {% if 'full' in user.roles %}checked{% endif %}
-                        onclick="toggleRole('{{ user.EMAIL }}', 'full')"
-                    />
-                </td>
+    <div class="overflow-x-auto">
+        <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-gray-100">
+                <tr>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Full Name</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
+                    <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">New Chat</th> 
+                    <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">JPT Pay</th>
+                    <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">History</th>
+                    <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Check Log</th> {# THÊM CỘT MỚI #}
+                    <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Admin</th> {# Đổi "Full" thành "Admin" để rõ ràng hơn #}
+                    {% if is_admin %}
+                    <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Thao tác</th>
+                    {% endif %}
+                </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+                {% for user in all_users %} 
+                <tr>
+                    <td class="px-6 py-4 whitespace-nowrap">{{ user.FULLNAME }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">{{ user.EMAIL }}</td>
 
-                <td class="border px-4 py-2 space-x-2">
-                    <button class="text-sm bg-yellow-300 px-2 py-1 rounded" onclick="toggleUser('{{ user.EMAIL }}')">
-                        {{ "Kích hoạt" if not user.status else "Tạm dừng" }}
-                    </button>
-                    <button class="text-sm bg-red-500 text-white px-2 py-1 rounded" onclick="deleteUser('{{ user.EMAIL }}')">Xóa</button>
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+                    <td class="px-6 py-4 text-center">
+                        <input type="checkbox" class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                            {% if 'newchat' in user.roles %}checked{% endif %} 
+                            {% if not is_admin %}disabled{% endif %} 
+                            onclick="toggleRole('{{ user.EMAIL }}', 'newchat', this.checked)" />
+                    </td>
+                    <td class="px-6 py-4 text-center">
+                        <input type="checkbox" class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                            {% if 'jpt' in user.roles %}checked{% endif %} 
+                            {% if not is_admin %}disabled{% endif %} 
+                            onclick="toggleRole('{{ user.EMAIL }}', 'jpt', this.checked)" />
+                    </td>
+                    <td class="px-6 py-4 text-center">
+                        <input type="checkbox" class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                            {% if 'history' in user.roles %}checked{% endif %} 
+                            {% if not is_admin %}disabled{% endif %} 
+                            onclick="toggleRole('{{ user.EMAIL }}', 'history', this.checked)" />
+                    </td>
+                    <td class="px-6 py-4 text-center"> {# CỘT MỚI CHO CHECK LOG #}
+                        <input type="checkbox" class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                            {% if 'checklog' in user.roles %}checked{% endif %} 
+                            {% if not is_admin %}disabled{% endif %} 
+                            onclick="toggleRole('{{ user.EMAIL }}', 'checklog', this.checked)" />
+                    </td>
+                    <td class="px-6 py-4 text-center"> {# CỘT ADMIN (trước là FULL) #}
+                        <input type="checkbox" class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                            {% if 'admin' in user.roles %}checked{% endif %} 
+                            {% if not is_admin %}disabled{% endif %} 
+                            onclick="toggleRole('{{ user.EMAIL }}', 'admin', this.checked)" />
+                    </td>
+                    {% if is_admin %} {# Chỉ hiển thị cột thao tác cho admin #}
+                    <td class="px-6 py-4 whitespace-nowrap text-center space-x-2">
+                        {# Nút Tạm dừng/Kích hoạt vẫn luôn hiển thị cho admin #}
+                        <button class="text-sm font-medium px-3 py-1 rounded-md {{ 'bg-gray-500 text-white' if user.status else 'bg-yellow-400 text-black' }}" onclick="toggleUser('{{ user.EMAIL }}')">
+                            {{ "Tạm dừng" if user.status else "Kích hoạt" }}
+                        </button>
+                        {# Nút Xóa chỉ hiển thị nếu người dùng HIỆN TẠI không phải admin #}
+                        {% if 'admin' not in user.roles %}
+                        <button class="text-sm font-medium bg-red-600 text-white px-3 py-1 rounded-md" onclick="deleteUser('{{ user.EMAIL }}')">Xóa</button>
+                        {% endif %}
+                    </td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </div>
 
 <script>
-// Các hàm JavaScript của bạn vẫn giữ nguyên
-function toggleRole(email, role) {
-    fetch('/update-role', {
+// Hàm để ẩn/hiện form thêm người dùng
+function toggleAddUserForm() {
+    const addUserForm = document.getElementById('addUserForm');
+    addUserForm.classList.toggle('hidden'); // Thêm hoặc xóa class 'hidden'
+}
+
+function addNewUser() {
+    const fullname = document.getElementById('newFullname').value;
+    const email = document.getElementById('newEmail').value;
+    const password = document.getElementById('newPassword').value;
+
+    if (!fullname || !email || !password) {
+        alert("Vui lòng điền đầy đủ thông tin.");
+        return;
+    }
+
+    fetch('/add-user', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: email, role: role })
+        body: JSON.stringify({ fullname, email, password })
     })
     .then(res => res.json())
     .then(data => {
         alert(data.message || data.error);
-        if (data.message) { 
-            window.location.reload(); 
+        if (data.message) {
+            window.location.reload(); // Tải lại trang để cập nhật bảng
         }
     })
     .catch(err => alert("Lỗi: " + err));
 }
 
+function toggleRole(email, role, checked) {
+    fetch('/update-role', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email, role: role, checked: checked })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.error) {
+            alert(data.error);
+            window.location.reload();
+        }
+    })
+    .catch(err => alert("Lỗi: " + err));
+}
 function deleteUser(email) {
-    if (!confirm("Bạn có chắc chắn muốn xóa tài khoản này không?")) return;
+    if (!confirm("Bạn có chắc chắn muốn xóa người dùng '" + email + "' không? Hành động này không thể hoàn tác.")) return;
+    
     fetch('/delete-user', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -107,9 +175,10 @@ function toggleUser(email) {
     })
     .then(res => res.json())
     .then(data => {
-        alert(data.message || data.error);
-        if (data.message) { 
-            window.location.reload();
+        if (data.message) {
+             window.location.reload();
+        } else {
+            alert(data.error);
         }
     })
     .catch(err => alert("Lỗi: " + err));
