@@ -1,39 +1,53 @@
 {% extends "include/base.html" %}
 
 {% block content_chat %}
+    {# Di chuyển thanh điều hướng xuống dưới, hoặc giữ nó nếu cần các nút khác #}
+    {# <div class="flex justify-end p-2 border-b border-gray-200 bg-white sticky top-0 z-10">
+        {% if file_token %}
+        <button id="downloadChatBtn" class="bg-blue-500 hover:bg-blue-600 text-white text-sm py-1 px-3 rounded-md flex items-center space-x-1">
+            <i class="fas fa-download"></i>
+            <span>Tải xuống Chat</span>
+        </button>
+        {% endif %}
+    </div> #}
+
     <div id="chatContainer" class="absolute inset-0 top-16 bottom-20 overflow-y-auto px-4 space-y-4" style="margin-top: 10px;">
         {% if chat_content %}
             {% for row in chat_content %}
                 {% if row.sender == "bot" %}
                     {% if row.type == "text" %}
                         <div class="bg-indigo-100 text-indigo-900 rounded-xl p-4 w-fit max-w-[75%] shadow-md self-start space-y-2 max-w-[350px] break-words">
-                            {% if row.message.type == "text" %}
-                                <p>{{ row.message.content }}</p>
-                            {% elif row.message.type == "table" %}
-                            <div class="overflow-x-auto">
-                                <table class="table-auto border-collapse border border-indigo-300 w-full text-sm">
-                                    <thead>
-                                        <tr class="bg-indigo-200">
-                                            {% for key in row.message.data[0].keys() %}
-                                                <th class="border border-indigo-300 px-2 py-1 text-left">{{ key }}</th>
-                                            {% endfor %}
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {% for item in row.message.data %}
-                                            <tr class="even:bg-indigo-50">
-                                                {% for value in item.values() %}
-                                                    <td class="border border-indigo-300 px-2 py-1 break-words">{{ value }}</td>
+                            {# Kiểm tra lại cấu trúc tin nhắn bot để hiển thị đúng #}
+                            {% if row.message is mapping %} {# If it's a dictionary #}
+                                {% if row.message.type == "text" %}
+                                    <p>{{ row.message.content }}</p>
+                                {% elif row.message.type == "table" %}
+                                <div class="overflow-x-auto">
+                                    <table class="table-auto border-collapse border border-indigo-300 w-full text-sm">
+                                        <thead>
+                                            <tr class="bg-indigo-200">
+                                                {% for key in row.message.data[0].keys() %}
+                                                    <th class="border border-indigo-300 px-2 py-1 text-left">{{ key }}</th>
                                                 {% endfor %}
                                             </tr>
-                                        {% endfor %}
-                                    </tbody>
-                                </table>
-                            </div>
-                            {% else %}
+                                        </thead>
+                                        <tbody>
+                                            {% for item in row.message.data %}
+                                                <tr class="even:bg-indigo-50">
+                                                    {% for value in item.values() %}
+                                                        <td class="border border-indigo-300 px-2 py-1 break-words">{{ value }}</td>
+                                                    {% endfor %}
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                                {% else %} {# Fallback for unknown message.type in bot message dict #}
+                                    <p>{{ row.message.content | default(row.message) }}</p>
+                                {% endif %}
+                            {% else %} {# If it's a simple string #}
                                 <p>{{ row.message }}</p>
                             {% endif %}
-
                         </div>
                     {% elif row.type == "image" %}
                         <div class="bg-indigo-100 text-indigo-900 rounded-xl p-1 w-fit max-w-[75%] shadow-md self-start space-y-2 max-w-[350px] break-words">
@@ -49,7 +63,7 @@
                             </a>
                         </div>
                     {% endif %}
-                {% else %}
+                {% else %} {# User messages #}
                     {% if row.type == "text" %}
                         <div class="bg-gray-200 text-gray-900 rounded-xl p-4 w-fit max-w-full ml-auto shadow-md space-y-2 max-w-[400px] break-words">
                             <p>{{ row.message }}</p>
@@ -71,6 +85,7 @@
                 {% endif %}
             {% endfor %}
         {% else %}
+            {# HIỆN THỊ GỢI Ý CỦA HỆ THỐNG MẶC ĐỊNH KHI CHƯA CÓ CHAT_CONTENT #}
             <div class="inset-0 flex items-center justify-center bg-opacity-50">
                 <div class="bg-yellow-100 text-yellow-900 rounded-xl p-4 w-fit max-w-[75%] shadow-md space-y-2 max-w-[400px] break-words">
                     <p>Bạn có thể hỏi tôi về các nội dung sau:</p>
@@ -87,12 +102,27 @@
             </div>
         {% endif %}
     </div>
+
+    {# CONTAINER CHO GỢI Ý CHAT #}
+    <div id="chatSuggestions" class="absolute bottom-20 left-0 right-0 px-4 py-2 bg-white border-t border-gray-200 hidden">
+        <div class="flex flex-wrap gap-2" id="suggestionsContainer">
+            {# Gợi ý sẽ được thêm vào đây bằng JavaScript #}
+        </div>
+    </div>
+
     <form action="/messenger" method="POST" enctype="multipart/form-data"  id="chatForm" class="absolute bottom-0 left-0 right-0 bg-white px-4 py-2 space-y-2 border-t">
         <div id="filePreview" class="flex items-center space-x-2 hidden">
             <span id="fileName" class="text-sm text-gray-700"></span>
             <button type="button" onclick="clearFile()" class="text-red-500 hover:underline text-xs">X</button>
         </div>
         <div class="flex items-center space-x-2">
+            {# NÚT TẢI XUỐNG ĐÃ ĐƯỢC DI CHUYỂN VÀO ĐÂY #}
+              {% if file_token %}
+            <button id="downloadChatBtn" type="button" class="bg-blue-500 hover:bg-blue-600 text-white rounded p-2 flex items-center justify-center" title="Download chat">
+                <i class="fas fa-download"></i>
+            </button>
+            {% endif %}
+
             <input type="hidden" name="file_token" value="{{ file_token }}">
             <input type="text" name="messageContent" id="messageInput" placeholder="Type your message..." class="flex-1 border border-gray-300 rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"/>
             <button id="sendButton" type="button" class="bg-indigo-600 hover:bg-indigo-700 text-white rounded p-2">
@@ -106,12 +136,20 @@
         </div>
     </form>
     <script>
-        const chatContainer = document.getElementById('chatContainer'); // Lấy phần tử chứa nội dung chat
+        const chatContainer = document.getElementById('chatContainer');
         const fileInput = document.getElementById('fileInput');
         const filePreview = document.getElementById('filePreview');
         const fileNameSpan = document.getElementById('fileName');
         const sendButton = document.getElementById('sendButton');
         const messageInput = document.getElementById('messageInput');
+        const chatForm = document.getElementById('chatForm'); // Lấy form
+
+        // PHẦN MỚI CHO GỢI Ý CHAT
+        const chatSuggestionsDiv = document.getElementById('chatSuggestions');
+        const suggestionsContainer = document.getElementById('suggestionsContainer');
+
+        // Biến từ Flask để kiểm tra xem đã có tin nhắn người dùng nào trong chat này chưa
+        const hasUserMessages = {{ has_user_messages | tojson }};
 
         // Hàm cuộn xuống dưới cùng
         function scrollToBottom() {
@@ -142,16 +180,110 @@
             } else {
                 sendButton.type = 'button';
             }
+
+            // Ẩn/hiện gợi ý dựa trên nội dung input và biến hasUserMessages
+            if (messageInput.value.trim() !== '') {
+                chatSuggestionsDiv.classList.add('hidden'); // Ẩn gợi ý khi đang gõ
+            } else {
+                // Chỉ tải lại gợi ý khi input rỗng VÀ chưa có tin nhắn người dùng nào trong chat
+                if (!hasUserMessages) {
+                    loadChatSuggestions();
+                } else {
+                    chatSuggestionsDiv.classList.add('hidden'); // Đảm bảo ẩn nếu đã có tin nhắn người dùng
+                }
+            }
         });
 
-        // Cuộn xuống dưới cùng khi trang được tải hoàn toàn
-        document.addEventListener('DOMContentLoaded', scrollToBottom);
-        window.addEventListener('load', scrollToBottom); // Để đảm bảo cuộn chính xác sau khi tất cả nội dung (ảnh) tải xong
+        // Hàm để tải và hiển thị gợi ý
+        function loadChatSuggestions() {
+            // Chỉ tải và hiển thị gợi ý nếu chưa có tin nhắn người dùng nào trong chat này
+            // VÀ ô nhập liệu đang rỗng
+            if (hasUserMessages || messageInput.value.trim() !== '') {
+                chatSuggestionsDiv.classList.add('hidden'); // Đảm bảo ẩn
+                return; // Không làm gì thêm
+            }
 
-        // Cuộn xuống dưới cùng sau khi form được gửi (tin nhắn mới được thêm)
-        document.getElementById('chatForm').addEventListener('submit', function() {
-            // Đặt một khoảng thời gian ngắn để nội dung mới có thể hiển thị trong DOM
-            setTimeout(scrollToBottom, 100);
+            fetch('/get_chat_suggestions')
+                .then(response => response.json())
+                .then(suggestions => {
+                    suggestionsContainer.innerHTML = ''; // Xóa gợi ý cũ
+                    if (suggestions.length > 0) {
+                        chatSuggestionsDiv.classList.remove('hidden'); // Hiển thị container gợi ý
+                        suggestions.forEach(suggestion => {
+                            const button = document.createElement('button');
+                            button.classList.add('px-3', 'py-1', 'bg-gray-100', 'text-gray-700', 'rounded-full', 'text-sm', 'hover:bg-gray-200');
+                            button.textContent = suggestion.text;
+                            button.type = 'button'; // Đảm bảo đây là button, không phải submit
+                            button.onclick = () => {
+                                messageInput.value = suggestion.text; // Đặt gợi ý vào ô nhập liệu
+                                messageInput.dispatchEvent(new Event('input')); // Kích hoạt sự kiện input để cập nhật nút gửi và ẩn gợi ý
+                                chatSuggestionsDiv.classList.add('hidden'); // Ẩn gợi ý ngay lập tức khi click
+                            };
+                            suggestionsContainer.appendChild(button);
+                        });
+                    } else {
+                        chatSuggestionsDiv.classList.add('hidden'); // Ẩn container gợi ý nếu không có
+                    }
+                    scrollToBottom(); // Cuộn xuống dưới cùng sau khi gợi ý tải xong
+                })
+                .catch(error => {
+                    console.error('Lỗi khi tải gợi ý chat:', error);
+                    chatSuggestionsDiv.classList.add('hidden'); // Ẩn nếu có lỗi
+                });
+        }
+
+        // Hàm tải xuống chat
+        function downloadChat(format = 'txt') {
+            const fileToken = '{{ file_token }}'; // Lấy file_token từ Flask
+
+            if (!fileToken || fileToken.trim() === '') {
+                alert("Không có cuộc trò chuyện nào để tải xuống.");
+                return;
+            }
+
+            // Xác định URL endpoint dựa trên định dạng
+            const url = `/download_chat/${fileToken}?format=${format}`;
+
+            // Tạo một thẻ <a> tạm thời để kích hoạt tải xuống
+            const link = document.createElement('a');
+            link.href = url;
+            // Tên file sẽ được server quyết định dựa trên title của chat, đây chỉ là tên fallback
+            link.setAttribute('download', `chat_export.${format}`); 
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+
+        // Cuộn xuống dưới cùng khi trang được tải hoàn toàn
+        document.addEventListener('DOMContentLoaded', () => {
+            scrollToBottom();
+            // Gọi loadChatSuggestions ban đầu, nó sẽ tự quyết định có hiển thị không
+            loadChatSuggestions();
+
+            // Thêm sự kiện click cho nút tải xuống
+            const downloadChatBtn = document.getElementById('downloadChatBtn');
+            if (downloadChatBtn) {
+                downloadChatBtn.addEventListener('click', () => {
+                    // Hỏi người dùng muốn tải xuống định dạng nào
+                    const userChoice = confirm("Bạn muốn tải xuống dưới định dạng JSON (Ok) hay TXT (Cancel)?");
+                    if (userChoice) {
+                        downloadChat('json'); // Tải xuống JSON
+                    } else {
+                        downloadChat('txt'); // Tải xuống TXT
+                    }
+                });
+            }
+        });
+
+        // Xử lý khi form được gửi
+        chatForm.addEventListener('submit', function() {
+            // Khi form gửi, chúng ta biết người dùng đã gửi tin nhắn.
+            // Biến hasUserMessages sẽ được cập nhật thành true sau khi trang reload.
+            chatSuggestionsDiv.classList.add('hidden'); // Ẩn gợi ý ngay lập tức
+            setTimeout(() => {
+                scrollToBottom();
+            }, 100);
         });
 
     </script>
